@@ -3,8 +3,12 @@ const express = require('express') // CommonJS import style!
 const morgan = require('morgan') // middleware for nice logging of incoming HTTP requests
 const cors = require('cors') // middleware for enabling CORS (Cross-Origin Resource Sharing) requests.
 const mongoose = require('mongoose')
+const path = require('path')
 
 const app = express() // instantiate an Express object
+
+app.use(express.static(path.join(__dirname, 'public')))// Serve static files from the 'public' folder
+
 app.use(morgan('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' })) // log all incoming requests, except when in unit test mode.  morgan has a few logging default styles - dev is a nice concise color-coded style
 app.use(cors()) // allow cross-origin resource sharing
 
@@ -57,6 +61,21 @@ app.get('/messages/:messageId', async (req, res) => {
     })
   }
 })
+// About route to share some information about the programmer
+app.get('/about', (req, res) => {
+  res.json({
+    name: "Chinwe Otti",
+    bio:`Hello, my name is Chinwe. I'm a junior studying computer science with a minor in public policy at NYU.
+    I grew up in Nigeria, Chicago and London. I have 2 older siblings who inspire me so much. I like to play tennis
+    and chess in my free time. I enjoy going to concerts and also visitng museums to learn history!
+    I hope to visit Brazil, Colombia, Ghana and Senegal one day! My favorite artists are Smino, Rema, FireboyDML, 
+    Little Simz and Ari Lennox. I will be graduating NYU in May 2027. 
+    I love to eat chicken yassa from Senegal, sushi, Nigerian cuisines and anything savoury.
+    I'm hoping to work in tech policy or product/program management when I graduate.`,
+    image: "http://localhost:5002/aboutphoto.jpeg"
+  });
+});
+
 // a route to handle logging out users
 app.post('/messages/save', async (req, res) => {
   // try to save the message to the database
