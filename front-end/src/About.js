@@ -16,7 +16,7 @@ const About = () => {
   return (
     <div>
       <h1>About Me</h1>
-      {/* Use the imported local image */}
+      {/* Use the my image */}
       <p style={{ marginTop: "20px" }}>{aboutData.bio}</p>
       <img
         src={aboutData.image}
