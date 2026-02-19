@@ -16,7 +16,7 @@ const About = () => {
   return (
     <div>
       <h1>About Me</h1>
-      {/* Use the my image */}
+      {/* Use my image */}
       <p style={{ marginTop: "20px" }}>{aboutData.bio}</p>
       <img
         src={aboutData.image}
